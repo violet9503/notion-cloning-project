@@ -6,7 +6,7 @@ const { API_END_POINT, API_KEY } = process.env;
 exports.handler = async function (event) {
   const options = JSON.parse(event.body);
   const { id = "", method, body, url } = options;
-  console.log(options, API_END_POINT, API_KEY);
+
   const { data } = await axios({
     url: `${API_END_POINT}${url}`,
     method,
