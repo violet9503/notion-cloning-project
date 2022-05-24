@@ -1,13 +1,14 @@
 const axios = require("axios");
 require("dotenv").config();
 
-const { API_BASE_URI, API_KEY } = process.env;
+const { API_END_POINT, API_KEY } = process.env;
 
 exports.handler = async function (event) {
   const options = JSON.parse(event.body);
   const { id = "", method, body, url } = options;
+  console.log(options, API_END_POINT, API_KEY);
   const { data } = await axios({
-    url: `${API_BASE_URI}${url}`,
+    url: `${API_END_POINT}${url}`,
     method,
     headers: {
       "Content-Type": "application/json",
