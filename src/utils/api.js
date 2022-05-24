@@ -1,41 +1,38 @@
-const API_BASE_URI = "https://kdt-frontend.programmers.co.kr";
-
-const request = async (url, options = {}) => {
-  const res = await fetch(`${API_BASE_URI}${url}`, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      "x-username": "violet9503",
-    },
+const request = async (options = {}) => {
+  const res = await fetch("/.netlify/functions/api", {
+    method: "POST",
+    body: JSON.stringify(options),
   });
 
   if (res.ok) {
-    return await res.json();
+    return res.json();
   }
   throw new Error(res.status);
 };
 
 export const getDocuments = async () => {
-  const data = await request("/documents");
+  const data = await request({ url: "/documents" });
 
   return await data;
 };
 
-export const getDocument = async (pageId) => {
-  const data = await request(`/documents/${pageId}`);
+export const getDocument = async pageId => {
+  const data = await request({ url: `/documents/${pageId}` });
 
   return await data;
 };
 
 export const updateDocument = async (pageId, content) => {
-  await request(`/documents/${pageId}`, {
+  await request({
+    url: `/documents/${pageId}`,
     method: "PUT",
     body: JSON.stringify(content),
   });
 };
 
-export const createDocument = async (parentId) => {
-  const data = await request("/documents", {
+export const createDocument = async parentId => {
+  const data = await request({
+    url: "/documents",
     method: "POST",
     body: JSON.stringify({
       title: "",
@@ -46,8 +43,9 @@ export const createDocument = async (parentId) => {
   return await data;
 };
 
-export const deleteDocument = async (id) => {
-  await request(`/documents/${id}`, {
+export const deleteDocument = async id => {
+  await request({
+    url: `/documents/${id}`,
     method: "DELETE",
   });
 };
