@@ -1,4 +1,5 @@
-import App from "./components/App.js";
+import "~/css/style.css";
+import App from "~/components/App.js";
 
 const $main = document.querySelector("#main");
 
